@@ -5,6 +5,9 @@ PERCENTAGE_TO_LETTER = {"A*": [95, 101], "A": [90, 95], "B+": [85, 90], "B": [80
 
 # TODO: Importez vos modules ici
 
+import json
+from os import path
+from recettes import add_recipes,print_recipe
 
 # TODO: Définissez vos fonction ici
 
@@ -22,13 +25,66 @@ def triplet(file1,file2):
         for line in f1 :
             f2.write(line.replace(" ","   "))
 
+def note(file1,file2):
+    with open(file1) as f :
+        note_percentage=f.read().splitlines()
+
+    with open(file2,"w") as f :
+        for note in note_percentage :
+         for key,value in PERCENTAGE_TO_LETTER.items() :
+            if value[0]<= int(note) < value[1] :
+                f.write(note + " " + key + "\n")
+                break
 
 
+
+def suprimer(recipes) :
+    nom=input("donner le nom de la recette a supprimer \n")
+    if nom in recipes :
+        del recipes[nom]
+        print("la recette est supprimée")
+    else:
+        print("la recette donner ne se trouve pas dans la liste des recettes ! \n")
+
+
+
+
+
+def exercice4(file_path="./recipes.p") :
+    if path.exists(file_path) :
+        recipes=json.load(open(file_path,"r"))
+
+    else:
+        recipes=dict()
+
+    while True :
+        choice = input("choisir une option :\n a) ajouter une recette \n b) modifier une recette\n c) supprimer une recette\n d) afficher une recette \n e) sortir d la fonction \n ").strip()
+
+        if choice=="a" :
+            recipes=add_recipes(recipes)
+        elif choice=="b" :
+            recipes=add_recipes(recipes)
+        elif choice == "c":
+            recipes=suprimer(recipes)
+        elif choice == "d":
+            recipes=print_recipe(recipes)
+        elif choice == "e":
+            break
+        else:
+            print("le choix n'est pas valide!!")
+
+    json.dump(recipes,open(file_path,"w"))
+
+
+
+
+def exercice5
 
 
 
 if __name__ == '__main__':
     # TODO: Appelez vos fonctions ici
     find_error("./exemple.txt","./exemple2.txt")
-
     triplet("./exemple.txt","./exemple2.txt")
+    note("./notes.txt","./exemple2.txt")
+    exercice4()
