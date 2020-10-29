@@ -78,13 +78,43 @@ def exercice4(file_path="./recipes.p") :
 
 
 
-def exercice5
+def exercice5(file1) :
+    list_1=[]
+    list_2=[]
+    with open(file1,encoding="utf-8") as f :
+        file1=f.readlines()
+        for ligne in file1 :
+            list_1.append(ligne.split(" "))
+
+        for ligne in list_1 :
+            for elem in ligne :
+                try :
+                    list_2.append(int(elem))
+                except :
+                    pass
+
+    return list_2
+
+
+
+def exercice6(file1,file2) :
+    with open(file1,encoding="utf-8") as f1,open(file2,"w") as f2 :
+        liste_1=f1.readlines()
+        for index,i in enumerate(liste_1) :
+            if index%2 == 0 :
+                f2.write(i)
+
+
+
 
 
 
 if __name__ == '__main__':
     # TODO: Appelez vos fonctions ici
-    find_error("./exemple.txt","./exemple2.txt")
-    triplet("./exemple.txt","./exemple2.txt")
-    note("./notes.txt","./exemple2.txt")
+    find_error("./exemple.txt", "./exemple2.txt")
+    triplet("./exemple.txt", "./exemple2.txt")
+    note("./notes.txt", "./exemple2.txt")
     exercice4()
+    exercice5("./exemple.txt")
+    exercice6("./exemple.txt","./exemple2.txt")
+
